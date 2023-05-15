@@ -6,6 +6,9 @@ const bodyParser = require("body-parser");
 //Stores the content of express in the app variable
 const app = express();
 
+//Sets the app to use ejs
+app.set("view engine", "ejs");
+
 //Uses express to access local files
 app.use(express.static("public"));
 
@@ -19,16 +22,10 @@ app.get("/", function(req, res){
     var currentDay = date.getDay();
 
     if (currentDay === 0 || currentDay === 6) {
-        res.write("<p>It's a weekend so you have to be resting</p>");
-        res.write("<p>I love resting. Do you?</p>");
-        res.write("<h1>Sound rest</h1>");
-        res.send();
+       
     }
     else {
-        res.write("<p>It's a busy working day.</p>");
-        res.write("<p>I love doing what I do best. Do you?</p>");
-        res.write("<h1>Keep working hard!</h1>");
-        res.send();
+  
     }
 
 });
