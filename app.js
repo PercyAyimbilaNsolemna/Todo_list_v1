@@ -22,7 +22,6 @@ app.get("/", function(req, res){
     var currentDay = date.getDay();
 
     var day = "";
-
     
     switch (currentDay) {
         case 0:
