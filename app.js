@@ -13,7 +13,20 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.get("/", function(req, res){
-    res.send("I have started work!");
+    
+    const date = new Date();
+
+    console.log("Date and Time: " + date);
+
+    console.log("Date: " + date.getDate());
+
+    console.log("Year: " + date.getFullYear());
+
+    console.log("Month: " + date.getMonth());
+
+    console.log("Day: " + date.getDay());
+
+    res.send("Still working!");
 });
 
 app.listen(3000, function(){
