@@ -23,11 +23,13 @@ app.get("/", function(req, res){
 
     var day = "";
 
+    const daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
     if (currentDay === 1 || currentDay === 6) {
-       day = "Weekend";
+       day = daysOfTheWeek[currentDay];
     }
     else {
-        day = "Weekday";
+        day = daysOfTheWeek[currentDay];
     }
 
     res.render("lists", {kindOfDay: day});
