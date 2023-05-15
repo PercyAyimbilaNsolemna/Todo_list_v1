@@ -23,13 +23,39 @@ app.get("/", function(req, res){
 
     var day = "";
 
-    const daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    
+    switch (currentDay) {
+        case 0:
+            day = "Sunday";
+            break;
+        
+        case 1:
+            day = "Monday";
+            break;
 
-    if (currentDay === 1 || currentDay === 6) {
-       day = daysOfTheWeek[currentDay];
-    }
-    else {
-        day = daysOfTheWeek[currentDay];
+        case 2:
+            day = "Tuesday";
+            break;
+
+        case 3:
+            day = "Wednesday";
+            break;
+
+        case 4: 
+            day = "Thursday";
+            break;
+
+        case 5:
+            day = "Friday";
+            break;
+
+        case 6:
+            day = "Saturday";
+            break;
+
+        default:
+            console.log("Error: Curent day is equal to " + currentDay);
+            break;
     }
 
     res.render("lists", {kindOfDay: day});
