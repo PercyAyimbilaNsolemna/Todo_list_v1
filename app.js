@@ -16,17 +16,21 @@ app.get("/", function(req, res){
     
     const date = new Date();
 
-    console.log("Date and Time: " + date);
+    var currentDay = date.getDay();
 
-    console.log("Date: " + date.getDate());
+    if (currentDay === 0 || currentDay === 6) {
+        res.write("<p>It's a weekend so you have to be resting</p>");
+        res.write("<p>I love resting. Do you?</p>");
+        res.write("<h1>Sound rest</h1>");
+        res.send();
+    }
+    else {
+        res.write("<p>It's a busy working day.</p>");
+        res.write("<p>I love doing what I do best. Do you?</p>");
+        res.write("<h1>Keep working hard!</h1>");
+        res.send();
+    }
 
-    console.log("Year: " + date.getFullYear());
-
-    console.log("Month: " + date.getMonth());
-
-    console.log("Day: " + date.getDay());
-
-    res.send("Still working!");
 });
 
 app.listen(3000, function(){
