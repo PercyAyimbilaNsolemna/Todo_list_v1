@@ -21,12 +21,16 @@ app.get("/", function(req, res){
 
     var currentDay = date.getDay();
 
+    var day = "";
+
     if (currentDay === 0 || currentDay === 6) {
-       
+       day = "Weekend";
     }
     else {
-  
+        day = "Weekday";
     }
+
+    res.render("lists", {kindOfDay: day});
 
 });
 
