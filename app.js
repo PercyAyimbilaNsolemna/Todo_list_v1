@@ -23,7 +23,7 @@ app.get("/", function(req, res){
 
     var day = "";
 
-    if (currentDay === 0 || currentDay === 6) {
+    if (currentDay === 1 || currentDay === 6) {
        day = "Weekend";
     }
     else {
