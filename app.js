@@ -15,21 +15,24 @@ app.use(express.static("public"));
 //Uses body-parser to encoded the json response received from an API or a form data
 app.use(bodyParser.urlencoded({extended:true}));
 
+//Makes express serve our static files
+//app.use(express.static("public"));
+
 //Creates a list to hold all the items added to the todo list
-var items = ["Cook Food", "Buy Food", "Eat Food"];
+let items = ["Cook Food", "Buy Food", "Eat Food"];
 
 app.get("/", function(req, res){
     
     const today = new Date();
 
-    var options = {
+    let options = {
         weekday: "long",
         year: "numeric",
         month: "long",
         day: "numeric"
     }
 
-    var day = today.toLocaleDateString("en-US", options);
+    let day = today.toLocaleDateString("en-US", options);
 
     res.render("list", {kindOfDay: day, newListItems: items});
 
@@ -37,7 +40,7 @@ app.get("/", function(req, res){
 
 app.post("/", function(req, res) {
 
-    var item = req.body.nextItem;
+    let item = req.body.nextItem;
 
     items.push(item);
 
