@@ -11,19 +11,16 @@
     <h1><%= kindOfDay %></h1>
 
     <ul>
-        <li>Buy Food</li>
-        <li>Cook Food</li>
-        <li>Eat Food</li> 
 
-        <% const listLength = nextItem.length; %> 
+        <% const listLength = newListItems.length; %> 
 
         <% if (listLength === 0) { %> 
-            <li style="display: none;"><%= nextItem %></li>
+            <li style="display: none;"><%= newListItems %></li>
         <% } else { %> 
 
             <% for (var i = 0; i < listLength; i++ ) { %> 
 
-                <li><%= nextItem[i] %></li>
+                <li><%= newListItems[i] %></li>
 
             <% } %> 
         <% } %> 

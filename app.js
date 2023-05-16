@@ -16,7 +16,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 
 //Creates a list to hold all the items added to the todo list
-var items = [];
+var items = ["Cook Food", "Buy Food", "Eat Food"];
 
 app.get("/", function(req, res){
     
@@ -31,7 +31,7 @@ app.get("/", function(req, res){
 
     var day = today.toLocaleDateString("en-US", options);
 
-    res.render("list", {kindOfDay: day, nextItem: items});
+    res.render("list", {kindOfDay: day, newListItems: items});
 
 });
 
