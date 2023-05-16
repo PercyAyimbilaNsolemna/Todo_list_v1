@@ -28,9 +28,14 @@ app.get("/", function(req, res){
 
     var day = today.toLocaleDateString("en-US", options);
 
-    res.render("lists", {kindOfDay: day});
+    res.render("list", {kindOfDay: day});
 
 });
+
+app.post("/", function(req, res) {
+    var nextItem = req.body.nextItem;
+
+})
 
 app.listen(3000, function(){
     console.log("Server is running on port 3000");
