@@ -14,7 +14,13 @@
         <li>Buy Food</li>
         <li>Cook Food</li>
         <li>Eat Food</li> 
-        <li><%= nextItem %></li>  
+
+        <% if (nextItem === ""){ %> 
+            <li style="display: none;"><%= nextItem %></li> 
+        <% }else { %> 
+            <li><%= nextItem %></li> 
+        <% } %> 
+         
     </ul>
 
     <form action="/" method="post">
