@@ -15,8 +15,8 @@ app.use(express.static("public"));
 //Uses body-parser to encoded the json response received from an API or a form data
 app.use(bodyParser.urlencoded({extended:true}));
 
-//Create an item variable to hold the recent item added to the todo list
-var item = "";
+//Creates a list to hold all the items added to the todo list
+var items = [];
 
 app.get("/", function(req, res){
     
@@ -31,13 +31,17 @@ app.get("/", function(req, res){
 
     var day = today.toLocaleDateString("en-US", options);
 
-    res.render("list", {kindOfDay: day, nextItem: item});
+    res.render("list", {kindOfDay: day, nextItem: items});
 
 });
 
 app.post("/", function(req, res) {
 
-    item = req.body.nextItem;
+    var item = req.body.nextItem;
+
+    items.push(item);
+
+    //console.log(items.length);
 
     res.redirect("/");
 })

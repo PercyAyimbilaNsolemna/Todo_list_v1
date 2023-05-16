@@ -15,10 +15,17 @@
         <li>Cook Food</li>
         <li>Eat Food</li> 
 
-        <% if (nextItem === ""){ %> 
-            <li style="display: none;"><%= nextItem %></li> 
-        <% }else { %> 
-            <li><%= nextItem %></li> 
+        <% const listLength = nextItem.length; %> 
+
+        <% if (listLength === 0) { %> 
+            <li style="display: none;"><%= nextItem %></li>
+        <% } else { %> 
+
+            <% for (var i = 0; i < listLength; i++ ) { %> 
+
+                <li><%= nextItem[i] %></li>
+
+            <% } %> 
         <% } %> 
          
     </ul>
