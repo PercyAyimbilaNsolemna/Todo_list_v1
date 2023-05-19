@@ -3,6 +3,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
+//Requires local module
+const date = require(__dirname + '/date.js');
+
 //Stores the content of express in the app variable
 const app = express();
 
@@ -26,18 +29,10 @@ let workItems = [];
 
 app.get("/", function(req, res){
     
-    const today = new Date();
+    //Runs the getDate method in the date.js module imported
+    const day = date.getDay();
 
-    let options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-    }
-
-    let day = today.toLocaleDateString("en-US", options);
-
-    res.render("list", {kindOfDay: day, newListItems: items});
+    res.render("list", {listTitle: day, newListItems: items});
 
 });
 
@@ -61,16 +56,14 @@ app.post("/", function(req, res) {
 
 //Creates a get method for the work route
 app.get('/work', function(req, res) {
-    res.render('list', {kindOfDay: 'Work', newListItems: workItems});
-})
+    res.render('list', {listTitle: 'Work', newListItems: workItems});
+});
 
+//Creates a get method for the about route
 app.get('/about', function(req, res) {
-    res.send('Working on it');
-})
+    res.render('about');
+});
 
-app.post('/about', function(req, res) {
-    res.send('Reach out soon');
-})
 
 app.listen(3000, function(){
     console.log("Server is running on port 3000");
