@@ -21,6 +21,9 @@ app.use(express.static("public"));
 //Creates a list to hold all the items added to the todo list
 let items = ["Cook Food", "Buy Food", "Eat Food"];
 
+//Creates an empty array to store the work list
+let workItems = [];
+
 app.get("/", function(req, res){
     
     const today = new Date();
@@ -42,11 +45,23 @@ app.post("/", function(req, res) {
 
     let item = req.body.nextItem;
 
-    items.push(item);
+    const nextItemRoute = req.body.button;
 
-    //console.log(items.length);
+    if (nextItemRoute === 'Work') {
+        workItems.push(item);
+        res.redirect('/work');
+    } else {
+        items.push(item);
+    
+        res.redirect("/");
+    }
 
-    res.redirect("/");
+
+})
+
+//Creates a get method for the work route
+app.get('/work', function(req, res) {
+    res.render('list', {kindOfDay: 'Work', newListItems: workItems});
 })
 
 app.get('/about', function(req, res) {
