@@ -30,7 +30,7 @@ let workItems = [];
 app.get("/", function(req, res){
     
     //Runs the getDate method in the date.js module imported
-    const day = date.getDay();
+    const day = date.getDate();
 
     res.render("list", {listTitle: day, newListItems: items});
 
