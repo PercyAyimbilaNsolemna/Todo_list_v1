@@ -2,6 +2,7 @@
 //Require installed modules
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require('mongoose');
 
 //Requires local module
 const date = require(__dirname + '/date.js');
@@ -21,6 +22,10 @@ app.use(bodyParser.urlencoded({extended:true}));
 //Makes express serve our static files
 app.use(express.static("public"));
 
+//Connects to mongodb 
+const URL = 'mongodb+srv://@cluster0.az84zbp.mongodb.net/todolistDB?retryWrites=true&w=majority';
+mongoose.connect(URL);
+console.log('Successfully connected to mongodb');
 
 app.get("/", function(req, res){
     
