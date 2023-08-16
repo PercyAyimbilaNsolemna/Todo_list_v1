@@ -21,11 +21,6 @@ app.use(bodyParser.urlencoded({extended:true}));
 //Makes express serve our static files
 app.use(express.static("public"));
 
-//Creates a list to hold all the items added to the todo list
-let items = ["Cook Food", "Buy Food", "Eat Food"];
-
-//Creates an empty array to store the work list
-let workItems = [];
 
 app.get("/", function(req, res){
     
