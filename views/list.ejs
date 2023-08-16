@@ -9,16 +9,14 @@
     <div class="box">
         <% const listLength = newListItems.length; %> 
 
-        <% for (var i = 0; i < listLength; i++ ) { %> 
-
+        <% newListItems.forEach(function(item) { %> 
             <div class="item">
                 <input type="checkbox">
 
-                <p><%= newListItems[i] %></p>
+                <p><%= item.name %></p>
             </div>
-            
+        <% }) %> 
 
-        <% } %> 
 
         <form class="item" action="/" method="post">
             <input type="text" name="nextItem" placeholder="Enter next item" autocomplete="off">

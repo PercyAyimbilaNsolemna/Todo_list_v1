@@ -47,14 +47,16 @@ const item3 = new Item({
 
 const defaultItems = [item1, item2, item3];
 
-Item.insertMany(defaultItems);
+//Item.insertMany(defaultItems);
 
-app.get("/", function(req, res){
+app.get("/", async function(req, res){
     
-    Item.find({}, function(err, foundItems) {
-        res.render("list", {listTitle: 'Today', newListItems: foundItems});
-    })
 
+
+    const foundItems = await Item.find({}).exec();
+    console.log(foundItems);
+
+    res.render("list", {listTitle: 'Today', newListItems: foundItems});
 
 });
 
