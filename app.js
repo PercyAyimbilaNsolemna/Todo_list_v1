@@ -4,9 +4,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 
-//Requires local module
-const date = require(__dirname + '/date.js');
-
 //Stores the content of express in the app variable
 const app = express();
 
@@ -23,16 +20,41 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
 //Connects to mongodb 
-const URL = 'mongodb+srv://@cluster0.az84zbp.mongodb.net/todolistDB?retryWrites=true&w=majority';
+const URL = 'mongodb+srv://percy:Ayimbila@cluster0.az84zbp.mongodb.net/todolistDB?retryWrites=true&w=majority';
 mongoose.connect(URL);
 console.log('Successfully connected to mongodb');
 
+//Defines the todolist schema 
+const itemsSchema = {
+    name: String
+};
+
+//Defines a model for the schema 
+const Item = mongoose.model('Item', itemsSchema);
+
+const item1 = new Item({
+    name: 'Welcome to your todolist!'
+});
+
+
+const item2 = new Item({
+    name: 'Hit the + to add a new item.'
+});
+
+const item3 = new Item({
+    name: '<-- Hit this to delete an item.'
+});
+
+const defaultItems = [item1, item2, item3];
+
+Item.insertMany(defaultItems);
+
 app.get("/", function(req, res){
     
-    //Runs the getDate method in the date.js module imported
-    const day = date.getDate();
+    Item.find({}, function(err, foundItems) {
+        res.render("list", {listTitle: 'Today', newListItems: foundItems});
+    })
 
-    res.render("list", {listTitle: day, newListItems: items});
 
 });
 
