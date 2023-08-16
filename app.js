@@ -80,6 +80,13 @@ app.post("/", async function(req, res) {
 
 })
 
+//Creates a post method for the delete route
+app.post('/delete', async function(req, res){
+    const checkedBoxId = req.body.checkbox
+    await Item.findByIdAndDelete(checkedBoxId);
+    res.redirect('/');
+})
+
 //Creates a get method for the work route
 app.get('/work', function(req, res) {
     res.render('list', {listTitle: 'Work', newListItems: workItems});

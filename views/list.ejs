@@ -10,11 +10,13 @@
         <% const listLength = newListItems.length; %> 
 
         <% newListItems.forEach(function(item) { %> 
-            <div class="item">
-                <input type="checkbox">
+            <form action="/delete" method="post">
+                <div class="item">
+                    <input type="checkbox" name='checkbox' value="<%= item._id %>" onchange="this.form.submit()" >
 
-                <p><%= item.name %></p>
-            </div>
+                    <p><%= item.name %></p>
+                </div>
+            </form>
         <% }) %> 
 
 
