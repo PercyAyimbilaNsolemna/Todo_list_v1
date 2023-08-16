@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
+const _ = require('lodash');
 
 //Stores the content of express in the app variable
 const app = express();
@@ -70,7 +71,7 @@ app.get("/", async function(req, res){
 
 //Creates a get method any dynamic route to the root route
 app.get('/:customListName', async function(req,res) {
-    const customListName = req.params.customListName;
+    const customListName = _.capitalize(req.params.customListName);
 
     const foundList = await List.findOne({name: customListName}).exec();
 
