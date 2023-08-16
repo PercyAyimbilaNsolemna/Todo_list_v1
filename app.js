@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
 //Connects to mongodb 
-const URL = 'mongodb+srv://percy:Ayimbila@cluster0.az84zbp.mongodb.net/todolistDB?retryWrites=true&w=majority';
+const URL = 'mongodb+srv://userName:<Password>@cluster0.az84zbp.mongodb.net/todolistDB?retryWrites=true&w=majority';
 mongoose.connect(URL);
 console.log('Successfully connected to mongodb');
 
