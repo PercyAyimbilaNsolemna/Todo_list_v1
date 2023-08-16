@@ -47,11 +47,16 @@ const item3 = new Item({
 
 const defaultItems = [item1, item2, item3];
 
+//List schema
+const listSchema = {
+    name: String,
+    items: [itemsSchema]
+}
+
+const List = mongoose.model('List', listSchema);
 
 
 app.get("/", async function(req, res){
-    
-
 
     const foundItems = await Item.find({}).exec();
     if (foundItems.length === 0) {
@@ -60,25 +65,57 @@ app.get("/", async function(req, res){
     } else {
         res.render("list", {listTitle: 'Today', newListItems: foundItems});
     }
-    console.log(foundItems);
 
 });
 
+//Creates a get method any dynamic route to the root route
+app.get('/:customListName', async function(req,res) {
+    const customListName = req.params.customListName;
+
+    const foundList = await List.findOne({name: customListName}).exec();
+
+    if(!foundList) {
+        //Create a new list
+        const newList = new List({
+            name: customListName,
+            items: defaultItems
+        });
+    
+        await newList.save();
+
+        res.redirect('/' + customListName);
+
+    } else {
+        //Show an existing list
+        res.render('list', {listTitle: foundList.name, newListItems: foundList.items});
+    }
+
+});
+
+//Creates a post method for the root route
 app.post("/", async function(req, res) {
 
     let itemName = req.body.nextItem;
+    let listName = req.body.list;
 
     const newItem = new Item({
         name: itemName
     });
 
-    await newItem.save();
+    if (listName === 'Today') {
+        await newItem.save();
 
-    res.redirect('/');
+        res.redirect('/');
+    } else {
+        const foundList = await List.findOne({name: listName});
+        foundList.items.push(newItem);
+        await foundList.save();
+        res.redirect('/' + listName);
+    }
 
     //const nextItemRoute = req.body.button;
 
-})
+});
 
 //Creates a post method for the delete route
 app.post('/delete', async function(req, res){
@@ -87,10 +124,6 @@ app.post('/delete', async function(req, res){
     res.redirect('/');
 })
 
-//Creates a get method for the work route
-app.get('/work', function(req, res) {
-    res.render('list', {listTitle: 'Work', newListItems: workItems});
-});
 
 //Creates a get method for the about route
 app.get('/about', function(req, res) {
