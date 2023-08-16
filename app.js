@@ -47,34 +47,36 @@ const item3 = new Item({
 
 const defaultItems = [item1, item2, item3];
 
-//Item.insertMany(defaultItems);
+
 
 app.get("/", async function(req, res){
     
 
 
     const foundItems = await Item.find({}).exec();
+    if (foundItems.length === 0) {
+        Item.insertMany(defaultItems);
+        res.redirect('/');
+    } else {
+        res.render("list", {listTitle: 'Today', newListItems: foundItems});
+    }
     console.log(foundItems);
-
-    res.render("list", {listTitle: 'Today', newListItems: foundItems});
 
 });
 
-app.post("/", function(req, res) {
+app.post("/", async function(req, res) {
 
-    let item = req.body.nextItem;
+    let itemName = req.body.nextItem;
 
-    const nextItemRoute = req.body.button;
+    const newItem = new Item({
+        name: itemName
+    });
 
-    if (nextItemRoute === 'Work') {
-        workItems.push(item);
-        res.redirect('/work');
-    } else {
-        items.push(item);
-    
-        res.redirect("/");
-    }
+    await newItem.save();
 
+    res.redirect('/');
+
+    //const nextItemRoute = req.body.button;
 
 })
 
