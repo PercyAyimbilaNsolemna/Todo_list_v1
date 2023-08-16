@@ -119,9 +119,17 @@ app.post("/", async function(req, res) {
 
 //Creates a post method for the delete route
 app.post('/delete', async function(req, res){
-    const checkedBoxId = req.body.checkbox
-    await Item.findByIdAndDelete(checkedBoxId);
-    res.redirect('/');
+    const checkedBoxId = req.body.checkbox;
+    const listName = req.body.listName;
+
+    if (listName === 'Today') {
+        await Item.findByIdAndDelete(checkedBoxId);
+        res.redirect('/');
+    } else {
+        await List.findOneAndUpdate({name: listName}, {$pull: {items: {_id: checkedBoxId}}}).exec();
+        res.redirect('/' + listName);
+    }
+   
 })
 
 
